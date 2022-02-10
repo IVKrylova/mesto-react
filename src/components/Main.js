@@ -4,16 +4,16 @@ function Main() {
       <section className="profile">
         <div className="profile__avatar">
           <img alt="аватар" class="profile__avatar-image" />
-          <button className="profile__button-edit-avatar" type="button" aria-label="Кнопка редактировать аватар"></button>
+          <button onClick={handleEditAvatarClick} className="profile__button-edit-avatar" type="button" aria-label="Кнопка редактировать аватар"></button>
         </div>
         <div className="profile__info">
           <div className="profile__list">
             <h1 className="profile__name"></h1>
             <p className="profile__profession"></p>
           </div>
-          <button className="button-edit button" type="button" id="edit-profile" aria-label="Кнопка редактировать"></button>
+          <button onClick={handleEditProfileClick} className="button-edit button" type="button" id="edit-profile" aria-label="Кнопка редактировать"></button>
         </div>
-        <button className="button-add button" type="button" id="add-card" aria-label="Кнопка добавить"></button>
+        <button onClick={handleAddPlaceClick} className="button-add button" type="button" id="add-card" aria-label="Кнопка добавить"></button>
       </section>
       <section className="popup" id="popup-edit-avatar">
         <div className="popup__container">
@@ -53,7 +53,7 @@ function Main() {
             <span className="place-url-input-error form__input-error"></span>
             <button type="submit" className="form__button">Создать</button>
           </form>
-        </div>  
+        </div>
       </section>
       <section className="popup popup_background_opacity" id="element-popup">
         <div className="popup__card">
@@ -74,6 +74,24 @@ function Main() {
       </section>
     </main>
   );
+
+  function handleEditAvatarClick() {
+    document.querySelector('.profile__button-edit-avatar').addEventListener('click', () => {
+      document.querySelector('#popup-edit-avatar').classList.add('popup_opened');;
+    });
+  }
+
+  function handleEditProfileClick() {
+    document.querySelector('.button-edit').addEventListener('click', () => {
+      document.querySelector('#popup-profile-info').classList.add('popup_opened');;
+    });
+  }
+
+  function handleAddPlaceClick() {
+    document.querySelector('.button-add').addEventListener('click', () => {
+      document.querySelector('#popup-element-card').classList.add('popup_opened');;
+    });
+  }
 }
 
 export default Main;
