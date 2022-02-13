@@ -15,4 +15,4 @@
 ## Планы по доработке проекта
 * Продолжить портировать проект Mesto на «Реакт»
 
-[Ссылка на проект в GitHub Pages](https://ivkrylova.github.io/mesto)
+[Ссылка на проект в GitHub Pages](https://ivkrylova.github.io/mesto-react/)
