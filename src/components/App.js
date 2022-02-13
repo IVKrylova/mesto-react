@@ -10,6 +10,8 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  // хуки состояния popup с изображением
+  const [selectedCard, setSelectedCard] = React.useState('');
 
   // открытие popup для редактирования аватара
   function handleEditAvatarClick() {
@@ -31,6 +33,12 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard('');
+  }
+
+  // открытие popup с изображением
+  function handleCardClick(card) {
+    setSelectedCard(card.link);
   }
 
   return (
@@ -39,7 +47,8 @@ function App() {
         <Header />
         <Main onEditAvatar={handleEditAvatarClick}
               onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick} />
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick} />
         <PopupWithForm name="edit-avatar" title="Обновить аватар"
                       children={(
                         <>
@@ -74,7 +83,8 @@ function App() {
                       )}
                       isOpen={isAddPlacePopupOpen}
                       onClose={closeAllPopups} />
-        <ImagePopup />
+        <ImagePopup card={selectedCard}
+                    onClose={closeAllPopups} />
         <PopupWithForm name="delete-card" title="Вы уверены?"
                       children={(
                         <>
