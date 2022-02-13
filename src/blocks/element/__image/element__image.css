@@ -2,7 +2,9 @@
   display: block;
   width: 282px;
   height: 282px;
-  object-fit: cover;
   box-sizing: border-box;
   border-radius: 10px 10px 0 0;
+  background-size: cover;
+  background-position: center;
+  border: none;
 }

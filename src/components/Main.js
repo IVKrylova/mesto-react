@@ -1,10 +1,14 @@
 import React from 'react';
 import { api } from '../utils/api';
+import Card from './Card';
 
 function Main(props) {
+  // хуки состояния данных о пользователе
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
+  // хуки состояния загрузки массива карточек
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     // загрузка информации о пользователе с сервера
@@ -16,7 +20,16 @@ function Main(props) {
         setUserAvatar(avatar);
       })
       .catch(err => console.log(err));
-  });
+  }, []);
+
+  React.useEffect(() => {
+    // загрузка массива карточек с сервера
+    api.getInitialCards()
+      .then(data => {
+        setCards(data);
+      })
+      .catch(err => console.log(err));
+  }, []);
 
   return (
     <main className="content">
@@ -34,7 +47,13 @@ function Main(props) {
         <button onClick={props.onAddPlace} className="button-add button" type="button" id="add-card" aria-label="Кнопка добавить"></button>
       </section>
       <section className="elements" aria-label="Блок с карточками мест">
-        <ul className="elements__list"></ul>
+        <ul className="elements__list">
+          {cards.map(card => {
+            return (
+              <Card id={card._id} name={card.name} likes={card.likes} link={card.link} />
+            );
+          })}
+        </ul>
       </section>
     </main>
   );

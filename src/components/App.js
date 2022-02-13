@@ -6,6 +6,7 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
 function App() {
+  // хуки состояния открытия/закрытия popup
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -83,21 +84,6 @@ function App() {
                       )} />
         <Footer />
       </div>
-      <template id="element-template">
-        <li className="element">
-          <a href="#" className="element__link-to-popup">
-            <img className="element__image" />
-          </a>
-          <button className="button-delete" type="button" aria-label="Кнопка удалить карточку"></button>
-          <div className="element__description">
-            <h2 className="element__title"></h2>
-            <div className="element__likes">
-              <button className="element__like" type="button" aria-label="Кнопка поставить лайк"></button>
-              <p className="element__count-like"></p>
-            </div>
-          </div>
-        </li>
-      </template>
     </body>
   );
 }
