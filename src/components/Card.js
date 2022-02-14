@@ -4,7 +4,7 @@ function Card(props) {
   }
 
   return (
-    <li className="element">
+    <li className="element" key={props._id}>
       <a href="#" className="element__link-to-popup">
         <span onClick={handleClick} className="element__image" style={{ backgroundImage: `url(${props.link})` }} />
       </a>

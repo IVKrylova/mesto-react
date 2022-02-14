@@ -42,7 +42,7 @@ function App() {
   }
 
   return (
-    <body className="site-background">
+    <div className="site-background">
       <div className="page">
         <Header />
         <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handleCardClick} />
@@ -51,13 +51,13 @@ function App() {
           <span className="avatar-url-input-error form__input-error"></span>
         </PopupWithForm>
         <PopupWithForm name="edit-profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText="Сохранить">
-          <input type="text" className="form__item" id="name" name="name" placeholder="Имя" minlength="2" maxlength="40" required />
+          <input type="text" className="form__item" id="name" name="name" placeholder="Имя" minLength="2" maxLength="40" required />
           <span className="name-input-error form__input-error"></span>
-          <input type="text" className="form__item" id="profession" name="profession" placeholder="О себе" minlength="2" maxlength="200" required />
+          <input type="text" className="form__item" id="profession" name="profession" placeholder="О себе" minLength="2" maxLength="200" required />
           <span className="profession-input-error form__input-error"></span>
         </PopupWithForm>
         <PopupWithForm name="add-card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText="Создать">
-          <input type="text" className="form__item" id="place" name="name" placeholder="Название" minlength="2" maxlength="30" required />
+          <input type="text" className="form__item" id="place" name="name" placeholder="Название" minLength="2" maxLength="30" required />
           <span className="place-input-error form__input-error"></span>
           <input type="url" className="form__item" id="place-url" name="link" placeholder="Ссылка на картинку" required />
           <span className="place-url-input-error form__input-error"></span>
@@ -68,7 +68,7 @@ function App() {
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         <Footer />
       </div>
-    </body>
+    </div>
   );
 }
 
