@@ -11,7 +11,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   // хуки состояния popup с изображением
-  const [selectedCard, setSelectedCard] = React.useState('');
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   // открытие popup для редактирования аватара
   function handleEditAvatarClick() {
@@ -33,12 +33,12 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCard('');
+    setSelectedCard({...{}});
   }
 
   // открытие popup с изображением
   function handleCardClick(card) {
-    setSelectedCard(card.link);
+    setSelectedCard(card);
   }
 
   return (
