@@ -6,6 +6,7 @@ function PopupWithForm(props) {
         <h3 className="popup__title">{props.title}</h3>
         <form className="popup__form form" name={`form-${props.name}`} id={`form-${props.name}`} novalidate>
           {props.children}
+          <button type="submit" className="form__button">{props.buttonText}</button>
         </form>
       </div>
     </section>
