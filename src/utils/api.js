@@ -125,9 +125,8 @@ class Api {
     .then(this._checkResponse)
   } */
 
- /*  // метод удаления карточки
-  deleteCard(cardId) {
-    const idCard = cardId;
+  // метод удаления карточки
+  deleteCard(idCard) {
     return fetch(`${this.baseUrl}/cards/${idCard}`, {
       method: 'DELETE',
       headers: {
@@ -136,7 +135,7 @@ class Api {
       }
     })
     .then(this._checkResponse)
-  } */
+  }
 
 
 

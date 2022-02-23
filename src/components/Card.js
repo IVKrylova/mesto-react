@@ -15,8 +15,13 @@ function Card(props) {
     props.onCardLike(props);
   }
 
+  // обработчик удаления карточки
+  function handleDeleteClick() {
+    props.onCardDelete(props);
+  }
+
   // oпределяем, являемся ли мы владельцем текущей карточки
-  const isOwn = props.owner._id === currentUser._id;
+  const isOwn = props.owner._id === currentUser.id;
 
   // cоздаём переменную, которую после зададим в `className` для кнопки удаления
   const cardDeleteButtonClassName = (
@@ -36,7 +41,7 @@ function Card(props) {
       <a href="#" className="element__link-to-popup">
         <span onClick={handleClick} className="element__image" style={{ backgroundImage: `url(${props.link})` }} />
       </a>
-      <button className={cardDeleteButtonClassName} type="button" aria-label="Кнопка удалить карточку"></button>
+      <button className={cardDeleteButtonClassName} onClick={handleDeleteClick} type="button" aria-label="Кнопка удалить карточку"></button>
       <div className="element__description">
         <h2 className="element__title">{props.name}</h2>
         <div className="element__likes">

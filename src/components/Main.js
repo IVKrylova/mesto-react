@@ -26,8 +26,19 @@ function Main(props) {
 
     // oтправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card.id, isLiked)
-      .then((newCard) => {
+      .then(newCard => {
         const newArrayCards = cards.map(item => item._id === card.id ? newCard : item);
+
+        setCards(newArrayCards);
+      })
+      .catch(err => console.log(err));
+  }
+
+  // обработчик удаления карточки
+  function handleCardDelete(card) {
+    api.deleteCard(card.id)
+      .then( _ => {
+        const newArrayCards = cards.filter(item => item._id !== card.id);
 
         setCards(newArrayCards);
       })
@@ -60,7 +71,8 @@ function Main(props) {
                     name={card.name}
                     likes={card.likes}
                     link={card.link}
-                    onCardLike={handleCardLike} />
+                    onCardLike={handleCardLike}
+                    onCardDelete={handleCardDelete} />
             );
           })}
         </ul>
