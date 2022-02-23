@@ -35,7 +35,57 @@ class Api {
     .then(this._checkResponse)
   }
 
-  // метод отправки новой карточки на сервер
+  // метод отправки на сервер карточки с поставленным/удаленным лайком
+  changeLikeCardStatus(idCard, isLiked) {
+    if (isLiked) {
+      return fetch(`${this.baseUrl}/cards/${idCard}/likes`, {
+        method: 'DELETE',
+        headers: {
+          authorization: this.authorization,
+          'Content-Type': this.contentType
+        }
+      })
+      .then(this._checkResponse)
+    } else {
+      return fetch(`${this.baseUrl}/cards/${idCard}/likes`, {
+        method: 'PUT',
+        headers: {
+          authorization: this.authorization,
+          'Content-Type': this.contentType
+        }
+      })
+      .then(this._checkResponse)
+    }
+  }
+
+
+  // метод для постановки лайка карточке
+ /*  putLike(cardId) {
+    const idCard = cardId;
+    return fetch(`${this.baseUrl}/cards/${idCard}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this.authorization,
+        'Content-Type': this.contentType
+      }
+    })
+    .then(this._checkResponse)
+  } */
+
+  /* // метод для удаления лайка у карточки
+  deleteLike(cardId) {
+    const idCard = cardId;
+    return fetch(`${this.baseUrl}/cards/${idCard}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this.authorization,
+        'Content-Type': this.contentType
+      }
+    })
+    .then(this._checkResponse)
+  } */
+
+  /* // метод отправки новой карточки на сервер
   sendNewCard(data, renderLoading) {
     return fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
@@ -53,9 +103,9 @@ class Api {
       return res;
     })
     .then(this._checkResponse)
-  }
+  } */
 
-  // метод для редактирования информации о пользователе
+  /* // метод для редактирования информации о пользователе
   editProfileInfo(data, renderLoading) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
@@ -73,9 +123,9 @@ class Api {
       return res;
     })
     .then(this._checkResponse)
-  }
+  } */
 
-  // метод удаления карточки
+ /*  // метод удаления карточки
   deleteCard(cardId) {
     const idCard = cardId;
     return fetch(`${this.baseUrl}/cards/${idCard}`, {
@@ -86,35 +136,11 @@ class Api {
       }
     })
     .then(this._checkResponse)
-  }
+  } */
 
-  // метод для постановки лайка карточке
-  putLike(cardId) {
-    const idCard = cardId;
-    return fetch(`${this.baseUrl}/cards/${idCard}/likes`, {
-      method: 'PUT',
-      headers: {
-        authorization: this.authorization,
-        'Content-Type': this.contentType
-      }
-    })
-    .then(this._checkResponse)
-  }
 
-  // метод для удаления лайка у карточки
-  deleteLike(cardId) {
-    const idCard = cardId;
-    return fetch(`${this.baseUrl}/cards/${idCard}/likes`, {
-      method: 'DELETE',
-      headers: {
-        authorization: this.authorization,
-        'Content-Type': this.contentType
-      }
-    })
-    .then(this._checkResponse)
-  }
 
-  // метод редактирования аватара
+  /* // метод редактирования аватара
   editAvatar(newAvatarUrl, renderLoading) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
@@ -131,7 +157,7 @@ class Api {
       return res;
     })
     .then(this._checkResponse)
-  }
+  } */
 }
 
 // создание экземпляра класса Api
