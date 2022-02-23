@@ -26,7 +26,7 @@ class Api {
   }
 
   // метод получения массива карточек
-  _getArrayCard() {
+  getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
       headers: {
         authorization: this.authorization
@@ -73,44 +73,6 @@ class Api {
       return res;
     })
     .then(this._checkResponse)
-  }
-
-  // метод получения массива карточек со свойствами isOwner и isLiked
-  getInitialCards() {
-   return Promise.all([this.getUserInfo(), this._getArrayCard()])
-      .then(res => {
-        const userInfo = res[0];
-        const arrayCards = res[1];
-        const cardsListWithIsOwner = arrayCards.map(card => {
-          if(userInfo._id === card.owner._id) {
-            card.isOwner = true;
-            return card;
-          } else {
-            card.isOwner = false;
-            return card;
-          }
-        });
-        const checkLike = function(like) {
-          return userInfo._id === like._id;
-        }
-
-        return cardsListWithIsOwner.map(card => {
-          if(card.likes.some(checkLike)) {
-            card.isLiked = true;
-              return card;
-          } else {
-            card.isLiked = false;
-            return card;
-          }
-        });
-      })
-      .then(data => {
-        return data.map(card => {
-          const { name, link, likes, isOwner, isLiked, _id } = card;
-
-          return { name, link, likes, isOwner, isLiked, _id };
-        });
-      })
   }
 
   // метод удаления карточки
