@@ -7,44 +7,6 @@ function Main(props) {
   // подписываемся на контекст CurrentUserContext
   const currentUser = React.useContext(CurrentUserContext);
 
-  /* // хуки состояния загрузки массива карточек
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    // загрузка массива карточек с сервера
-    api.getInitialCards()
-      .then(data => {
-        setCards(data);
-      })
-      .catch(err => console.log(err));
-  }, []); */
-
-  /* // обработчик клика на лайк
-  function handleCardLike(card) {
-    // проверяем, есть ли уже лайк на этой карточке
-    const isLiked = card.likes.some(i => i._id === currentUser.id);
-
-    // oтправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card.id, isLiked)
-      .then(newCard => {
-        const newArrayCards = cards.map(item => item._id === card.id ? newCard : item);
-
-        setCards(newArrayCards);
-      })
-      .catch(err => console.log(err));
-  }
-
-  // обработчик удаления карточки
-  function handleCardDelete(card) {
-    api.deleteCard(card.id)
-      .then( _ => {
-        const newArrayCards = cards.filter(item => item._id !== card.id);
-
-        setCards(newArrayCards);
-      })
-      .catch(err => console.log(err));
-  } */
-
   return (
     <main className="content">
       <section className="profile">

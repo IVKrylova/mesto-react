@@ -41,7 +41,7 @@ function Card(props) {
       <a href="#" className="element__link-to-popup">
         <span onClick={handleClick} className="element__image" style={{ backgroundImage: `url(${props.link})` }} />
       </a>
-      <button className={cardDeleteButtonClassName} onClick={handleDeleteClick} type="button" aria-label="Кнопка удалить карточку"></button>
+      <button value={props.id} className={cardDeleteButtonClassName} onClick={props.onCardDelete} type="button" aria-label="Кнопка удалить карточку"></button>
       <div className="element__description">
         <h2 className="element__title">{props.name}</h2>
         <div className="element__likes">

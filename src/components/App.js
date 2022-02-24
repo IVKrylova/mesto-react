@@ -2,19 +2,22 @@ import React from 'react';
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import DeleteCardPopup from './DeleteCardPopup';
 
 function App() {
   // хуки состояния открытия/закрытия popup
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen ] = React.useState(false);
+  // хуки состояния текущего id карточки
+  const [currentCardId, setCurrentCardId] = React.useState('');
   // хуки состояния popup с изображением
   const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '' });;
   // хуки состояния данных о пользователе
@@ -47,14 +50,22 @@ function App() {
   }
 
   // обработчик удаления карточки
-  function handleCardDelete(card) {
-    api.deleteCard(card.id)
+  function handleCardDelete(props) {
+    api.deleteCard(props)
       .then( _ => {
-        const newArrayCards = cards.filter(item => item._id !== card.id);
+        const newArrayCards = cards.filter(item => item._id !== props);
 
         setCards(newArrayCards);
+        setCurrentCardId('');
+        closeAllPopups();
       })
       .catch(err => console.log(err));
+  }
+
+  // открытие popup для удаления карточки
+  function handleOpenCardClick(evt) {
+    setIsDeleteCardPopupOpen(true);
+    setCurrentCardId(evt.target.value);
   }
 
   // открытие popup для редактирования аватара
@@ -78,6 +89,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard({...{name: '', link: ''}});
+    setIsDeleteCardPopupOpen(false);
   }
 
   // открытие popup с изображением
@@ -136,7 +148,7 @@ function App() {
                 onCardClick={handleCardClick}
                 cards={cards}
                 onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete} />
+                onCardDelete={handleOpenCardClick} />
           <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar}
                           isOpen={isEditAvatarPopupOpen}
                           onClose={closeAllPopups} />
@@ -146,9 +158,10 @@ function App() {
           <AddPlacePopup isOpen={isAddPlacePopupOpen}
                         onClose={closeAllPopups}
                         onAddPlace={handleAddPlaceSubmit} />
-          <PopupWithForm name="delete-card" title="Вы уверены?" buttonText="Да">
-            <input type="hidden" name="card-id" className="form__input-id" />
-          </PopupWithForm>
+          <DeleteCardPopup isOpen={isDeleteCardPopupOpen}
+                          onClose={closeAllPopups}
+                          cardId={currentCardId}
+                          onDeleteCard={handleCardDelete} />
           <ImagePopup card={selectedCard}
                       onClose={closeAllPopups} />
           <Footer />
