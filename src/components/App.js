@@ -7,6 +7,7 @@ import ImagePopup from "./ImagePopup";
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 
 function App() {
   // хуки состояния открытия/закрытия popup
@@ -46,8 +47,19 @@ function App() {
     setSelectedCard(card);
   }
 
+  // обработчик изменения информации о пользователе
   function handleUpdateUser(props) {
     api.editProfileInfo(props)
+      .then(data => {
+        setCurrentUser({ name: data.name, description: data.about, avatar: data.avatar, id: data._id });
+        closeAllPopups();
+      })
+      .catch(err => console.log(err));
+  }
+
+  // обработчик изменения аватара
+  function handleUpdateAvatar(props) {
+    api.editAvatar(props.avatar)
       .then(data => {
         setCurrentUser({ name: data.name, description: data.about, avatar: data.avatar, id: data._id });
         closeAllPopups();
@@ -71,10 +83,7 @@ function App() {
         <div className="page">
           <Header />
           <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handleCardClick} />
-          <PopupWithForm name="edit-avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} buttonText="Сохранить">
-            <input type="url" className="form__item" id="avatar-url" name="avatar" placeholder="Ссылка на аватар" required />
-            <span className="avatar-url-input-error form__input-error"></span>
-          </PopupWithForm>
+          <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
           <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
           <PopupWithForm name="add-card" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText="Создать">
             <input type="text" className="form__item" id="place" name="name" placeholder="Название" minLength="2" maxLength="30" required />

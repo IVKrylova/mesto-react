@@ -58,7 +58,6 @@ class Api {
     }
   }
 
-
   // метод для редактирования информации о пользователе
   editProfileInfo(data/* , renderLoading */) {
     return fetch(`${this.baseUrl}/users/me`, {
@@ -80,33 +79,7 @@ class Api {
   }
 
 
-  // метод для постановки лайка карточке
- /*  putLike(cardId) {
-    const idCard = cardId;
-    return fetch(`${this.baseUrl}/cards/${idCard}/likes`, {
-      method: 'PUT',
-      headers: {
-        authorization: this.authorization,
-        'Content-Type': this.contentType
-      }
-    })
-    .then(this._checkResponse)
-  } */
-
-  /* // метод для удаления лайка у карточки
-  deleteLike(cardId) {
-    const idCard = cardId;
-    return fetch(`${this.baseUrl}/cards/${idCard}/likes`, {
-      method: 'DELETE',
-      headers: {
-        authorization: this.authorization,
-        'Content-Type': this.contentType
-      }
-    })
-    .then(this._checkResponse)
-  } */
-
-  /* // метод отправки новой карточки на сервер
+   /* // метод отправки новой карточки на сервер
   sendNewCard(data, renderLoading) {
     return fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
@@ -117,26 +90,6 @@ class Api {
       body: JSON.stringify({
         name: data.name,
         link: data.link
-      })
-    })
-    .then(res => {
-      renderLoading(res.ok);
-      return res;
-    })
-    .then(this._checkResponse)
-  } */
-
-  /* // метод для редактирования информации о пользователе
-  editProfileInfo(data, renderLoading) {
-    return fetch(`${this.baseUrl}/users/me`, {
-      method: 'PATCH',
-      headers: {
-        authorization: this.authorization,
-        'Content-Type': this.contentType
-      },
-      body: JSON.stringify({
-        name: data.name,
-        about: data.profession
       })
     })
     .then(res => {
@@ -158,10 +111,8 @@ class Api {
     .then(this._checkResponse)
   }
 
-
-
-  /* // метод редактирования аватара
-  editAvatar(newAvatarUrl, renderLoading) {
+  // метод редактирования аватара
+  editAvatar(newAvatarUrl/* , renderLoading */) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
@@ -173,11 +124,11 @@ class Api {
       })
     })
     .then(res => {
-      renderLoading(res.ok);
+      /* renderLoading(res.ok); */
       return res;
     })
     .then(this._checkResponse)
-  } */
+  }
 }
 
 // создание экземпляра класса Api

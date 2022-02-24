@@ -52,25 +52,3 @@ function EditProfilePopup(props) {
 }
 
 export default EditProfilePopup;
-
-
-/* // Подписка на контекст
-const currentUser = React.useContext(CurrentUserContext);
-
-// После загрузки текущего пользователя из API
-// его данные будут использованы в управляемых компонентах.
-React.useEffect(() => {
-  setName(currentUser.name);
-  setDescription(currentUser.about);
-}, [currentUser]); */
-
-/* // Обработчик изменения инпута обновляет стейт
-function handleChange(e) {
-  setValue(e.target.value);
-}
-
-return (
-      // Значение элемента «привязывается» к значению стейта
-  <input type="text" value={value} onChange={handleChange} />
-);
-} */
