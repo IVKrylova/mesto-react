@@ -30,6 +30,7 @@ function EditProfilePopup(props) {
     setDescription(currentUser.description);
   }, [currentUser]);
 
+  // обраотчик формы
   function handleSubmit(evt) {
     // запрещаем браузеру переходить по адресу формы
     evt.preventDefault();

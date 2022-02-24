@@ -7,7 +7,7 @@ function Main(props) {
   // подписываемся на контекст CurrentUserContext
   const currentUser = React.useContext(CurrentUserContext);
 
-  // хуки состояния загрузки массива карточек
+  /* // хуки состояния загрузки массива карточек
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
@@ -17,9 +17,9 @@ function Main(props) {
         setCards(data);
       })
       .catch(err => console.log(err));
-  }, []);
+  }, []); */
 
-  // обработчик клика на лайк
+  /* // обработчик клика на лайк
   function handleCardLike(card) {
     // проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser.id);
@@ -43,7 +43,7 @@ function Main(props) {
         setCards(newArrayCards);
       })
       .catch(err => console.log(err));
-  }
+  } */
 
   return (
     <main className="content">
@@ -62,7 +62,7 @@ function Main(props) {
       </section>
       <section className="elements" aria-label="Блок с карточками мест">
         <ul className="elements__list">
-          {cards.map(card => {
+          {props.cards.map(card => {
             return (
               <Card key={card._id}
                     onCardClick={props.onCardClick}
@@ -71,8 +71,8 @@ function Main(props) {
                     name={card.name}
                     likes={card.likes}
                     link={card.link}
-                    onCardLike={handleCardLike}
-                    onCardDelete={handleCardDelete} />
+                    onCardLike={props.onCardLike}
+                    onCardDelete={props.onCardDelete} />
             );
           })}
         </ul>

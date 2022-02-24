@@ -78,9 +78,8 @@ class Api {
     .then(this._checkResponse)
   }
 
-
-   /* // метод отправки новой карточки на сервер
-  sendNewCard(data, renderLoading) {
+  // метод отправки новой карточки на сервер
+  sendNewCard(data/* , renderLoading */) {
     return fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
       headers: {
@@ -93,11 +92,11 @@ class Api {
       })
     })
     .then(res => {
-      renderLoading(res.ok);
+      /* renderLoading(res.ok); */
       return res;
     })
     .then(this._checkResponse)
-  } */
+  }
 
   // метод удаления карточки
   deleteCard(idCard) {
