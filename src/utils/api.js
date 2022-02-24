@@ -59,6 +59,27 @@ class Api {
   }
 
 
+  // метод для редактирования информации о пользователе
+  editProfileInfo(data/* , renderLoading */) {
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this.authorization,
+        'Content-Type': this.contentType
+      },
+      body: JSON.stringify({
+        name: data.name,
+        about: data.description
+      })
+    })
+    .then(res => {
+      /* renderLoading(res.ok); */
+      return res;
+    })
+    .then(this._checkResponse)
+  }
+
+
   // метод для постановки лайка карточке
  /*  putLike(cardId) {
     const idCard = cardId;
