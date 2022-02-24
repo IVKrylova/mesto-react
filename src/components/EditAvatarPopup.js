@@ -13,6 +13,9 @@ function EditAvatarPopup(props) {
     props.onUpdateAvatar({
       avatar: inputRef.current.value,
     });
+
+    // сброс значений инпутов формы
+    inputRef.current.value = '';
   }
 
   return (

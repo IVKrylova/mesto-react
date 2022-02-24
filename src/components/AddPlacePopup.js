@@ -30,6 +30,10 @@ function AddPlacePopup(props) {
       name: name,
       link: link,
     });
+
+    // сброс значений инпутов формы
+    setName('');
+    setLink('');
   }
 
   return (
