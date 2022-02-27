@@ -51,6 +51,20 @@ function App() {
       .catch(err => console.log(err));
   }
 
+   // обработчик закрытия popup при нажатии на Esc
+  function handleEscClose(evt) {
+    if (evt.key === 'Escape') {
+      closeAllPopups();
+    }
+  }
+
+  // обработчик закрытия popup при клике вне его
+  function handleBackgroundClose(evt) {
+    if (evt.target.classList.contains('popup_opened')) {
+      closeAllPopups();
+    }
+  }
+
   // обработчик удаления карточки
   function handleCardDelete(props) {
     api.deleteCard(props)
@@ -148,7 +162,9 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="site-background">
+      <div className="site-background"
+          onClick={handleBackgroundClose}
+          onKeyDown={handleEscClose}>
         <div className="page">
           <Header />
           <Main onEditAvatar={handleEditAvatarClick}
