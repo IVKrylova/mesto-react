@@ -24,6 +24,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({ name: '', description: '', avatar: '', id: '' });
   // хуки состояния загрузки массива карточек
   const [cards, setCards] = React.useState([]);
+  // хуки состояния индикатора загрузки запросов
+  const [isRenderLoading, setIsRenderLoading] = React.useState(false);
 
   React.useEffect(() => {
     // загрузка массива карточек с сервера
@@ -99,32 +101,39 @@ function App() {
 
   // обработчик изменения информации о пользователе
   function handleUpdateUser(props) {
+    setIsRenderLoading(true);
     api.editProfileInfo(props)
       .then(data => {
         setCurrentUser({ name: data.name, description: data.about, avatar: data.avatar, id: data._id });
         closeAllPopups();
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(_ => setIsRenderLoading(false));
   }
 
   // обработчик изменения аватара
   function handleUpdateAvatar(props) {
+    //setIsRenderLoading(isRenderLoading);
+    setIsRenderLoading(true);
     api.editAvatar(props.avatar)
       .then(data => {
         setCurrentUser({ name: data.name, description: data.about, avatar: data.avatar, id: data._id });
         closeAllPopups();
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(_ => setIsRenderLoading(false));
   }
 
   // обработчик добавления новой карточки
   function handleAddPlaceSubmit(props) {
+    setIsRenderLoading(true);
     api.sendNewCard(props)
       .then(data => {
         setCards([data, ...cards]);
         closeAllPopups();
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(_ => setIsRenderLoading(false));
   }
 
   React.useEffect(() => {
@@ -151,17 +160,24 @@ function App() {
                 onCardDelete={handleOpenCardClick} />
           <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar}
                           isOpen={isEditAvatarPopupOpen}
-                          onClose={closeAllPopups} />
+                          onClose={closeAllPopups}
+                          buttonText="Сохранить"
+                          isRenderLoading={isRenderLoading} />
           <EditProfilePopup onUpdateUser={handleUpdateUser}
                             isOpen={isEditProfilePopupOpen}
-                            onClose={closeAllPopups} />
+                            onClose={closeAllPopups}
+                            buttonText="Сохранить"
+                            isRenderLoading={isRenderLoading} />
           <AddPlacePopup isOpen={isAddPlacePopupOpen}
                         onClose={closeAllPopups}
-                        onAddPlace={handleAddPlaceSubmit} />
+                        onAddPlace={handleAddPlaceSubmit}
+                        buttonText="Создать"
+                        isRenderLoading={isRenderLoading} />
           <DeleteCardPopup isOpen={isDeleteCardPopupOpen}
                           onClose={closeAllPopups}
                           cardId={currentCardId}
-                          onDeleteCard={handleCardDelete} />
+                          onDeleteCard={handleCardDelete}
+                          buttonText="Да" />
           <ImagePopup card={selectedCard}
                       onClose={closeAllPopups} />
           <Footer />

@@ -15,11 +15,6 @@ function Card(props) {
     props.onCardLike(props);
   }
 
-  // обработчик удаления карточки
-  function handleDeleteClick() {
-    props.onCardDelete(props);
-  }
-
   // oпределяем, являемся ли мы владельцем текущей карточки
   const isOwn = props.owner._id === currentUser.id;
 

@@ -12,10 +12,11 @@ function DeleteCardPopup(props) {
   }
 
   return (
-    <PopupWithForm name="delete-card" title="Вы уверены?" buttonText="Да"
+    <PopupWithForm name="delete-card" title="Вы уверены?"
                   isOpen={props.isOpen}
                   onClose={props.onClose}
-                  onSubmit={handleSubmit}  />
+                  onSubmit={handleSubmit}
+                  buttonText={props.buttonText} />
   );
 }
 
