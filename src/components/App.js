@@ -127,7 +127,6 @@ function App() {
 
   // обработчик изменения аватара
   function handleUpdateAvatar(props) {
-    //setIsRenderLoading(isRenderLoading);
     setIsRenderLoading(true);
     api.editAvatar(props.avatar)
       .then(data => {

@@ -5,6 +5,10 @@ function AddPlacePopup(props) {
   // стейты со значениями инпутов
   const [name, setName] = React.useState('');
   const [link, setLink] = React.useState('');
+  // хуки состояния валидности input type="url"
+  const [isValidLink, setIsValidLink] = React.useState(true);
+  // хуки состояния валидности input name="name"
+  const [isValidName, setIsValidName] = React.useState(true);
 
   // oбработчик изменения инпута
   function handleChange(evt) {
@@ -13,9 +17,11 @@ function AddPlacePopup(props) {
     const name = target.name;
 
     if (name === 'name') {
+      checkInputName(value);
       setName(value);
     }
     if (name === 'link') {
+      checkInputLink(value);
       setLink(value);
     }
   }
@@ -36,17 +42,41 @@ function AddPlacePopup(props) {
     setLink('');
   }
 
+  // функция проверки валидности input type="url"
+  function checkInputLink(value) {
+    const regex = new RegExp('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?');
+    if (!regex.test(value)) {
+      setIsValidLink(false);
+    } else {
+      setIsValidLink(true);
+    }
+  }
+
+  // функция проверки валидности input name="name"
+  function checkInputName(value) {
+    if (value.length < 2 || value.length > 30) {
+      setIsValidName(false);
+    } else {
+      setIsValidName(true);
+    }
+  }
+
   return (
     <PopupWithForm name="add-card" title="Новое место"
                   isOpen={props.isOpen}
                   onClose={props.onClose}
                   isRenderLoading={props.isRenderLoading}
                   buttonText={props.buttonText}
-                  onSubmit={handleSubmit}>
-      <input type="text" value={name} onChange={handleChange} className="form__item" id="place" name="name" placeholder="Название" minLength="2" maxLength="30" required />
-      <span className="place-input-error form__input-error"></span>
-      <input type="url" value={link} onChange={handleChange} className="form__item" id="place-url" name="link" placeholder="Ссылка на картинку" required />
-      <span className="place-url-input-error form__input-error"></span>
+                  onSubmit={handleSubmit}
+                  isValid={isValidLink && isValidName}>
+      <input type="text" value={name} onChange={handleChange} className={`form__item ${isValidName ? '' : 'form__item_type_error'}`} id="place" name="name" placeholder="Название" required />
+      <span className={`form__input-error ${isValidName ? '' : 'form__input-error_active'}`}>
+        {isValidName ? '' : 'Заполните это поле'}
+      </span>
+      <input type="url" value={link} onChange={handleChange} className={`form__item ${isValidLink ? '' : 'form__item_type_error'}`} id="place-url" name="link" placeholder="Ссылка на картинку" required />
+      <span className={`form__input-error ${isValidLink ? '' : 'form__input-error_active'}`}>
+        {isValidLink ? '' : 'Введите URL'}
+      </span>
     </PopupWithForm>
   );
 }
