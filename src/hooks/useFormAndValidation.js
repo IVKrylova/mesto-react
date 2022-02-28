@@ -23,6 +23,6 @@ export function useFormAndValidation() {
     setIsValid(newIsValid);
   }, [setValues, setErrors, setIsValid]);
 
-  return { values, handleChange, errors, isValid, resetForm, setValues, setIsValid };
+  return { values, handleChange, errors, isValid, resetForm, setValues, setIsValid, setErrors };
 }
 

@@ -7,7 +7,7 @@ function EditAvatarPopup(props) {
   // хуки состояния ошибок input
   const [ error, setError ] = React.useState('');
   // хуки состояния валидности input
-  const [isValid, setIsValid] = React.useState(true);
+  const [isValid, setIsValid] = React.useState(false);
 
   // обработчик изменения инпута
   function handleSubmit(evt) {
@@ -17,9 +17,6 @@ function EditAvatarPopup(props) {
     props.onUpdateAvatar({
       avatar: inputRef.current.value,
     });
-
-    // сброс значений инпутов формы
-    inputRef.current.value = '';
   }
 
   // функция проверки валидности input
@@ -27,6 +24,12 @@ function EditAvatarPopup(props) {
     setError(evt.target.validationMessage);
     setIsValid(evt.target.closest('form').checkValidity());
   }
+
+  // сброс значений инпутов формы
+  React.useEffect(() => {
+    inputRef.current.value = '';
+    setIsValid(false);
+  }, [props.isOpen]);
 
   return (
     <PopupWithForm name="edit-avatar" title="Обновить аватар"

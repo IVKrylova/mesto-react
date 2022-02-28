@@ -16,10 +16,12 @@ function AddPlacePopup(props) {
       name: values.name,
       link: values.link,
     });
-
-    // сброс значений инпутов формы
-    resetForm();
   }
+
+  // сброс значений инпутов формы
+  React.useEffect(() => {
+    resetForm();
+  }, [props.isOpen]);
 
   return (
     <PopupWithForm name="add-card" title="Новое место"

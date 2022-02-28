@@ -7,12 +7,14 @@ function EditProfilePopup(props) {
   // подписываемся на контекст CurrentUserContext
   const currentUser = React.useContext(CurrentUserContext);
   // запускаем валидацию формы
-  const { values, handleChange, errors, isValid, setValues } = useFormAndValidation();
+  const { values, handleChange, errors, isValid, setValues, setErrors, setIsValid } = useFormAndValidation();
 
   // после загрузки текущего пользователя из API eго данные будут использованы в управляемых компонентах
   React.useEffect(() => {
     setValues({ name: currentUser.name, description: currentUser.description});
-  }, [currentUser]);
+    setErrors({});
+    setIsValid(true);
+  }, [currentUser, props.isOpen]);
 
   // обраотчик формы
   function handleSubmit(evt) {
