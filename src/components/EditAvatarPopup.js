@@ -4,7 +4,9 @@ import PopupWithForm from "./PopupWithForm";
 function EditAvatarPopup(props) {
   // переменная для доступа к элементу инпута
   const inputRef = React.useRef();
-  // хуки состояния валидности input type="url"
+  // хуки состояния ошибок input
+  const [ error, setError ] = React.useState('');
+  // хуки состояния валидности input
   const [isValid, setIsValid] = React.useState(true);
 
   // обработчик изменения инпута
@@ -20,14 +22,10 @@ function EditAvatarPopup(props) {
     inputRef.current.value = '';
   }
 
-  // функция проверки валидности input type="url"
-  function checkInputUrl() {
-    const regex = new RegExp('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?');
-    if (!regex.test(inputRef.current.value)) {
-      setIsValid(false);
-    } else {
-      setIsValid(true);
-    }
+  // функция проверки валидности input
+  function checkInputUrl(evt) {
+    setError(evt.target.validationMessage);
+    setIsValid(evt.target.closest('form').checkValidity());
   }
 
   return (
@@ -37,9 +35,12 @@ function EditAvatarPopup(props) {
                   isOpen={props.isOpen} onClose={props.onClose}
                   buttonText={props.buttonText}
                   isValid={isValid}>
-      <input onChange={checkInputUrl} ref={inputRef} type="url" className={`form__item ${isValid ? '' : 'form__item_type_error'}`} id="avatar-url" name="avatar" placeholder="Ссылка на аватар" required />
+      <input type="url" id="avatar-url" name="avatar" placeholder="Ссылка на аватар" required
+            className={`form__item ${isValid ? '' : 'form__item_type_error'}`}
+            onChange={checkInputUrl}
+            ref={inputRef} />
       <span className={`form__input-error ${isValid ? '' : 'form__input-error_active'}`}>
-        {isValid ? '' : 'Введите URL'}
+        {isValid ? '' : error}
       </span>
     </PopupWithForm>
   );
