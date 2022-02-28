@@ -1,40 +1,20 @@
 import React from 'react';
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { useFormAndValidation } from '../hooks/useFormAndValidation';
 
 function EditProfilePopup(props) {
   // подписываемся на контекст CurrentUserContext
   const currentUser = React.useContext(CurrentUserContext);
-
-  // стейты со значениями инпутов
-  const [name, setName] = React.useState('');
-  const [description, setDescription] = React.useState('');
-  // хуки состояния валидности input name="name"
-  const [isValidName, setIsValidName] = React.useState(true);
-  // хуки состояния валидности input name="description"
-  const [isValidDescription, setIsValidDescription] = React.useState(true);
-
-  // oбработчик изменения инпута
-  function handleChange(evt) {
-    const target = evt.target;
-    const value = target.value;
-    const name = target.name;
-
-    if (name === 'name') {
-      checkInputName(value);
-      setName(value);
-    }
-    if (name === 'description') {
-      checkInputDescription(value);
-      setDescription(value);
-    }
-  }
+  // запускаем валидацию формы
+  const { values, handleChange, errors, isValid, setValues, setErrors, setIsValid } = useFormAndValidation();
 
   // после загрузки текущего пользователя из API eго данные будут использованы в управляемых компонентах
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.description);
-  }, [currentUser]);
+    setValues({ name: currentUser.name, description: currentUser.description});
+    setErrors({});
+    setIsValid(true);
+  }, [currentUser, props.isOpen]);
 
   // обраотчик формы
   function handleSubmit(evt) {
@@ -43,27 +23,9 @@ function EditProfilePopup(props) {
 
     // передаём значения управляемых компонентов во внешний обработчик
     props.onUpdateUser({
-      name: name,
-      description: description
+      name: values.name,
+      description: values.description,
     });
-  }
-
-  // функция проверки валидности input name="name"
-  function checkInputName(value) {
-    if (value.length < 2 || value.length > 40) {
-      setIsValidName(false);
-    } else {
-      setIsValidName(true);
-    }
-  }
-
-   // функция проверки валидности input name="description"
-   function checkInputDescription(value) {
-    if (value.length < 2 || value.length > 200) {
-      setIsValidDescription(false);
-    } else {
-      setIsValidDescription(true);
-    }
   }
 
   return (
@@ -73,14 +35,20 @@ function EditProfilePopup(props) {
                   isRenderLoading={props.isRenderLoading}
                   onSubmit={handleSubmit}
                   buttonText={props.buttonText}
-                  isValid={isValidName && isValidDescription}>
-      <input type="text" value={name} onChange={handleChange} className={`form__item ${isValidName ? '' : 'form__item_type_error'}`} id="name" name="name" placeholder="Имя" required />
-      <span className={`form__input-error ${isValidName ? '' : 'form__input-error_active'}`}>
-        {isValidName ? '' : 'Заполните это поле'}
+                  isValid={isValid}>
+      <input type="text" id="name" name="name" placeholder="Имя" minLength="2" maxLength="40" required
+            className={`form__item ${isValid ? '' : 'form__item_type_error'}`}
+            value={values.name}
+            onChange={handleChange} />
+      <span className={`form__input-error ${isValid ? '' : 'form__input-error_active'}`}>
+        {isValid ? '' : errors.name}
       </span>
-      <input type="text" value={description} onChange={handleChange} className={`form__item ${isValidDescription ? '' : 'form__item_type_error'}`} id="profession" name="description" placeholder="О себе" required />
-      <span className={`form__input-error ${isValidDescription ? '' : 'form__input-error_active'}`}>
-        {isValidDescription ? '' : 'Заполните это поле'}
+      <input type="text" id="profession" name="description" placeholder="О себе" required minLength="2" maxLength="200"
+            value={values.description}
+            onChange={handleChange}
+            className={`form__item ${isValid ? '' : 'form__item_type_error'}`} />
+      <span className={`form__input-error ${isValid ? '' : 'form__input-error_active'}`}>
+        {isValid ? '' : errors.description}
       </span>
     </PopupWithForm>
   );
