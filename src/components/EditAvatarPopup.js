@@ -29,6 +29,7 @@ function EditAvatarPopup(props) {
   React.useEffect(() => {
     inputRef.current.value = '';
     setIsValid(false);
+    setError('');
   }, [props.isOpen]);
 
   return (
