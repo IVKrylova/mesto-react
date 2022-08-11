@@ -28,7 +28,7 @@
 Посмотреть готовый проект Mesto на React можно на [GitHub Pages](https://ivkrylova.github.io/mesto-react/).
 
 ## Предыдущая версия
-Посмотреть проект Mesto на JavaScript можно [здесь](hhttps://github.com/IVKrylova/mesto).
+Посмотреть проект Mesto на JavaScript можно [здесь](https://github.com/IVKrylova/mesto).
 
 ## Доработка проекта
 * Проект Mesto на React с настроенной авторизацией можно посмотреть [здесь](https://github.com/IVKrylova/react-mesto-auth).
