@@ -1,5 +1,6 @@
 <img src="./screenshots/mesto.png" alt="Проект: Место" width=600 /><br>
-**Проектная работа для Яндекс.Практикум (спринты 10-11)** <br><br>
+<img src="https://shields.io/badge/react-black?logo=react&style=for-the-badge%22" alt="React Badge"/><br>
+**Проектная работа для Яндекс.Практикум (спринты 10-11)** <br>
 
 ## Описание
 Проект Mesto - это веб-приложение на React, куда можно добавлять фотографии, удалять их и ставить лайки.
