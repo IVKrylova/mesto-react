@@ -5,6 +5,9 @@
 ## Описание
 Проект Mesto - это веб-приложение на React, куда можно добавлять фотографии, удалять их и ставить лайки.
 
+## Демо
+Посмотреть готовый проект Mesto на React можно на [GitHub Pages](https://ivkrylova.github.io/mesto-react/).
+
 ## Используемые технологии
 1. HTML5
 2. Методология БЭМ
@@ -23,9 +26,6 @@
 * Удаление фотографий
 * Просмотр фотографий в popup
 * Валидация форм
-
-## Демо
-Посмотреть готовый проект Mesto на React можно на [GitHub Pages](https://ivkrylova.github.io/mesto-react/).
 
 ## Предыдущая версия
 Посмотреть проект Mesto на JavaScript можно [здесь](https://github.com/IVKrylova/mesto).
